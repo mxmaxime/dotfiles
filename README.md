@@ -1,7 +1,18 @@
 # Dotfiles
-Ce dépôt contient ma configuration. Il me suffit ensuite de cloner ce dépôt pour remettre mes préférences sur un serveur.
+Ce dépôt contient ma configuration, qui n'a pas pour but d'être modulable mais de répondre à mes besoins. Ce dépôt peut vous inspirer pour vos configurations. J'essaie le plus possible de les documenter.
 
-## Remapper les touches du clavier
+# Installation
+- cloner le dépôt : `git clone git@github.com:EmixMaxime/dotfiles.git`
+- créer des liens symboliques
+
+## Liens symboliques
+Commandes à lancer depuis le dossier du clone
+```shell
+ln -s ./dotfiles/.tmux.conf ~/
+ln -s ./dotfiles/.zshrc ~/
+```
+
+# Remapper les touches du clavier
 J'utilise cette astuce pour remplacer la touche puissance 2 par un back-tick (développeur javascript dans l'âme). <br />
 ```bash
 # Génération du fichier map
