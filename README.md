@@ -77,12 +77,15 @@ sudo !! # pour l'utilisateur root :-)
 # Après avoir fait ça, il faut fermer la session et la redémarrer.
 ```
 
-## Les plugins
-- [Zsh syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md) qui permet d'avoir une coloration syntaxique des commandes, c'est très confortable.
-- [Zsh autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) qui m'évite de répéter 100 fois les mêmes commandes tous les jours.
-
 # Oh-my-zsh
 Pour l'installation, encore une fois rendez vous sur [le dépôt](https://github.com/robbyrussell/oh-my-zsh).
+
+## Les plugins
+- [Zsh syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md) qui permet d'avoir une coloration syntaxique des commandes, c'est très confortable. `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`.
+
+- [Zsh autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) qui m'évite de répéter 100 fois les mêmes commandes tous les jours. `git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions`.
+
+
 
 ## Thème oh-my-zsh
 J'utilise le thème [pure](https://github.com/sindresorhus/pure).
