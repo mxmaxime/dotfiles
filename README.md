@@ -57,8 +57,24 @@ sudo apt-get install zsh
 
 ## Utilisation
 Une fois Zsh installé, notre shell reste Bash. Pour changer, il suffit de tapper `zsh`.
+
+
 Lors du premier lancement il va vous interroger sur comment créer le fichier de configuration. Je recommande l'option (2), zsh va générer pour vous une configuration de base documentée.
 
+## Changement du shell par défaut
+Zsh est installé, c'est bien. Cependant, vous pouvez remarquer que votre shell est toujours celui par défaut du votre système (généralement `/bin/bash`, à vérifier avec `echo $SHELL`). Voici comment changer ce shell pour zsh :
+
+```shell
+chsh -s $(which zsh)
+```
+
+Cela a pour effet de modifier le shell par défaut pour l'utilisateur courant (donc vous même). Si vous souhaitez le changer aussi pour l'utilisateur `root` il suffit d'exécuter la même commande avec cet utilisateur :
+
+```shell
+sudo !!
+```
+
+## divers
 ```
 cd /var/log
 cd log local # -> cd /var/local
@@ -70,11 +86,6 @@ unsetopt # voir les options pas activés
 prompt -l # affiche les themes disponibles
 prompt bart # change le thème sur cette session de terminal
 # pour que ce soit "définitif" : changer le prompt du .zshrc
-
-# changer de shell
-chsh -s $(which zsh) # pour l'utilisateur courant
-sudo !! # pour l'utilisateur root :-)
-# Après avoir fait ça, il faut fermer la session et la redémarrer.
 ```
 
 # Oh-my-zsh
