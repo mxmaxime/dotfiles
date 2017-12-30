@@ -168,3 +168,10 @@ Le back-tick correspond à `16 grave` et la puissance 2 à `49 twosuperior`. <br
 Je cherche la ligne correspondant à la clef `49` et je la modifie :
 `keycode 49 = grave`
 
+# Fix problème de son
+Parfois le son se met à foirer, grésillements...
+
+```shell
+pulseaudio -k && sudo alsa force-reload
+```
+
