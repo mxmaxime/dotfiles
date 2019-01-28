@@ -34,4 +34,4 @@ If you do, then resort to the dkl command with a container ID.
 - `dkstats redis` which applies a grep filter if a parameter is supplied.
 
 ## htop like
-- `dktop` very basic informations. [https://www.techietown.info/2017/03/docker-container-monitoring-using-docker-stats/](Can customize it easily).
+- `dktop` very basic informations. [Can customize it easily](https://www.techietown.info/2017/03/docker-container-monitoring-using-docker-stats/).
