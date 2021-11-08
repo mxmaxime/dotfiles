@@ -52,6 +52,11 @@ Plugin 'junegunn/fzf.vim'
 " got from: https://github.com/junegunn/fzf.vim/issues/121
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
+" In normal mode, press Space to toggle the current fold open/closed. However, if the cursor is not in a fold, move to the right (the default behavior).
+" from: https://vim.fandom.com/wiki/Folding
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
 " Python
 " Plugin 'nvie/vim-flake8'
 
@@ -164,6 +169,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$']
 
+set foldmethod=syntax
 
 "============================================================
 " Python configuration
