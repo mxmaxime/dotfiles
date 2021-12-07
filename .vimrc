@@ -15,6 +15,10 @@ set backspace=indent,eol,start
 " see: https://stackoverflow.com/questions/16638962/sending-ctrl-right-to-vim-inside-tmux
 set term=xterm-256color
 
+"============================================================
+" Plugins with Vundle.
+"============================================================
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -22,6 +26,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+" snippets
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<tab>"
+
+" themes
+Plugin 'morhetz/gruvbox'
 Plugin 'ghifarit53/tokyonight-vim'
 Plugin 'arcticicestudio/nord-vim'
 Plugin 'dracula/vim', { 'name': 'dracula' }
@@ -30,11 +41,13 @@ Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 Plugin 'ayu-theme/ayu-vim', { 'name': 'ayu' }
 Plugin 'junegunn/seoul256.vim'
 Plugin 'mhartington/oceanic-next'
+Plugin 'embark-theme/vim', { 'name': 'embark' }
+
+Plugin 'sheerun/vim-polyglot'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-Plugin 'embark-theme/vim', { 'name': 'embark' }
-
+" nice to have.
 Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/nerdtree'
 " does not work on my laptop, weird characters instead of logos.
@@ -45,9 +58,17 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
 Plugin 'preservim/tagbar'
 
+" Languages specific things to install.
+Plugin 'fatih/vim-go'
+
 " really fast fuzzy finder
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " fzf respect .gitignore file by using ag.
 " got from: https://github.com/junegunn/fzf.vim/issues/121
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -57,18 +78,11 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
-" Python
-" Plugin 'nvie/vim-flake8'
-
-Plugin 'sheerun/vim-polyglot'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
 
 "============================================================
-" mxmaxime settings
+" Settings
 "============================================================
+
 " press F2 before and after past code.
 " -> https://stackoverflow.com/a/2514520
 set pastetoggle=<F2>
@@ -80,23 +94,6 @@ set tabstop=4 " number of visual spaces per tab
 set softtabstop=4 " number of spaces in tab when editing
 set expandtab " tab to spaces
 
-"let g:seoul256_background = 256
-"colo seoul256-light
-"color dracula
-"colorscheme sourlick-contrast
-"colorscheme nord
-"colorscheme OceanicNext
-"colorscheme material
-colorscheme embark
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'palenight'
-"let g:tokyonight_style = 'storm' " available: night, storm
-"let g:tokyonight_enable_italic = 1
-set termguicolors
-
-"colorscheme tokyonight
-
-
 set showcmd " print the mapleader key to the bottom right hand corner when it's active.
 set number " show line numbers
 set cursorline  " highlight current line
@@ -104,10 +101,38 @@ set cursorcolumn
 set showmatch " highlight matching [{()}]
 set incsearch " search as characters are entered
 set hlsearch " highlight matches
+set foldmethod=syntax " folds with language syntax
 
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+" it's the delay to trigger plugins after you stopped writting.
+set updatetime=400
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " autoquit if only nerdtree is open (1 file open, :q file quit. by default is would stay only with nerdtree).
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*.pyc
+
+
+"============================================================
+" Theming
+"============================================================
+let g:seoul256_background = 256
+"color seoul256-light
+"color dracula
+"colorscheme sourlick-contrast
+"colorscheme nord
+"colorscheme OceanicNext
+"colorscheme material
+"colorscheme embark
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'palenight'
+"let g:tokyonight_style = 'storm' " available: night, storm
+"let g:tokyonight_enable_italic = 1
+set termguicolors
+
+" dark or light for gruvbox
+set background=dark
+colorscheme gruvbox
+"colorscheme tokyonight
 
 " airline
 "let g:airline_theme = 'seoul256'
@@ -116,8 +141,6 @@ let g:airline_theme = 'dracula'
 
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#branch#enabled = 1
-let g:airline_left_sep = ' ❤  '
-let g:airline_right_sep = ' 🟆  '
 let g:airline_section_warning = ''
 let g:airline_section_y = ''
 let g:airline_section_x = ''
@@ -161,7 +184,11 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Nerd Tree toggling
-map <C-q> :NERDTreeToggle<CR>
+map <leader>w :NERDTreeToggle<CR>
+
+
+" map Ctrl+u to redo
+nnoremap <C-u> :redo<CR>
 
 " go to definition to coc
 nmap <silent> gd <Plug>(coc-definition)
@@ -169,7 +196,39 @@ nmap <silent> gr <Plug>(coc-references)
 
 let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$']
 
-set foldmethod=syntax
+"map to split
+" vim default is <C-w> s (horizontal) and <C-w> v (vertical)
+nnoremap ,v <C-w>v
+nnoremap ,h <C-w>s
+
+"map resizing buffers
+noremap <C-w>+ :resize +10<CR>
+noremap <C-w>- :resize -10<CR>
+noremap <C-w>< :vertical:resize -10<CR>
+noremap <C-w>> :vertical:resize +10<CR>
+
+"create custom mappings for Go files
+autocmd BufEnter *.go nmap <leader>t  <Plug>(go-test)
+autocmd BufEnter *.go nmap <leader>tt <Plug>(go-test-func)
+autocmd BufEnter *.go nmap <leader>c  <Plug>(go-coverage-toggle)
+autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
+autocmd BufEnter *.go nmap <leader>ii  <Plug>(go-implements)
+autocmd BufEnter *.go nmap <leader>ci  <Plug>(go-describe)
+autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
+autocmd BufEnter *.go nmap <leader>cs  <Plug>(go-callstack)
+
+" map turning off highlighting after search and closing quickfix window
+nnoremap <Esc><Esc> :noh<CR>:ccl<CR>
+
+" fugitive
+" fugitive.vim mappings
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gr :Gread<CR>
+nmap <leader>gw :Gwrite<CR>
+nmap <leader>gd :tabe<CR>:Gdiffsplit<CR>
+nmap <leader>gs :tabe<CR>:Gstatus<CR>
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gl :tabe %<CR>:Glog -- %<CR>
 
 "============================================================
 " Python configuration
