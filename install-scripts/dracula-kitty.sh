@@ -1,0 +1,1 @@
+wget https://github.com/dracula/kitty/archive/master.zip && unzip -j master.zip kitty-master/diff.conf kitty-master/dracula.conf -d ~/.config/kitty && echo "include dracula.conf" >> ~/.config/kitty/kitty.conf && rm master.zip
