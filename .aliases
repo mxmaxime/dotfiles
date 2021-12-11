@@ -1,0 +1,18 @@
+alias vim="stty stop '' -ixoff ; vim"
+alias k="kubectl -n dedicated"
+alias kcontext="kubectl config use-context"
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
+## space: gets space left on disk
+alias space="df -h"
+
+## a quick refresh for your shell instance.
+alias zreload="source ~/.zshrc"
+alias breload="source ~/.bashrc"
+
+alias g="grep -i"
