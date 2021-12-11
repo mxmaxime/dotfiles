@@ -8,8 +8,8 @@ Ce dépôt contient ma configuration, qui **n'a pas pour but d'être modulable m
 ## Liens symboliques
 Commandes à lancer depuis le dossier du clone
 ```shell
-ln -s ./dotfiles/.tmux.conf ~/
-ln -s ./dotfiles/.zshrc ~/
+ln -s $PWD/.tmux.conf $HOME
+rm $HOME/.zshrc && ln -s $PWD/.zshrc $HOME
 ```
 
 # Outils de développement
