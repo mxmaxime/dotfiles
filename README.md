@@ -10,6 +10,8 @@ Commandes à lancer depuis le dossier du clone
 ```shell
 ln -s $PWD/.tmux.conf $HOME
 rm $HOME/.zshrc && ln -s $PWD/.zshrc $HOME
+ln -s $PWD/.zsh_functions $HOME
+ln -s $PWD/.aliases $HOME
 ```
 
 # Outils de développement
