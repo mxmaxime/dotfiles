@@ -1,5 +1,5 @@
 alias vim="stty stop '' -ixoff ; vim"
-alias k="kubectl -n dedicated"
+alias k="kubectl $KUBECTL_PARAMS"
 alias kcontext="kubectl config use-context"
 
 alias ..='cd ..'
