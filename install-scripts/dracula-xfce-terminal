@@ -1,0 +1,5 @@
+git clone https://github.com/dracula/xfce4-terminal.git && \
+cd xfce4-terminal && \
+mkdir -p ~/.local/share/xfce4/terminal/colorschemes/ && \
+cp Dracula.theme ~/.local/share/xfce4/terminal/colorschemes/Dracula.theme && \
+cd .. && rm -rf xfce4-terminal
