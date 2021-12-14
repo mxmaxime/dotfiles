@@ -1,5 +1,11 @@
 alias vim="stty stop '' -ixoff ; vim"
 alias k="kubectl $KUBECTL_PARAMS"
+# make "k" alias works with k8s autocompletion.
+# from: https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-zsh/
+compdef __start_kubectl k
+alias kcontext="kubectl config use-context"
+
+
 alias kcontext="kubectl config use-context"
 
 alias kg="k get"
