@@ -32,6 +32,8 @@ Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<tab>"
 
 " themes
+Plugin 'jacoborus/tender.vim'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'morhetz/gruvbox'
 Plugin 'ghifarit53/tokyonight-vim'
 Plugin 'arcticicestudio/nord-vim'
@@ -49,6 +51,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " nice to have.
 Plugin 'mattn/emmet-vim'
+Plugin 'alvan/vim-closetag'
 Plugin 'scrooloose/nerdtree'
 " does not work on my laptop, weird characters instead of logos.
 " Plugin 'ryanoasis/vim-devicons'
@@ -91,7 +94,7 @@ syntax on
 set smartindent
 set shiftwidth=4 " number of spaces when shift indenting
 set tabstop=4 " number of visual spaces per tab
-set softtabstop=4 " number of spaces in tab when editing
+"set softtabstop=4 " number of spaces in tab when editing
 set expandtab " tab to spaces
 
 set showcmd " print the mapleader key to the bottom right hand corner when it's active.
@@ -102,6 +105,10 @@ set showmatch " highlight matching [{()}]
 set incsearch " search as characters are entered
 set hlsearch " highlight matches
 set foldmethod=syntax " folds with language syntax
+
+" when folding is enabled the default settings will fold all blocks by default.
+" To start with unfolded content we can set
+set foldlevelstart=20
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -115,8 +122,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*.pyc
 "============================================================
 " Theming
 "============================================================
-let g:seoul256_background = 256
-"color seoul256-light
+"let g:seoul256_background = 256
+color seoul256-light
 "color dracula
 "colorscheme sourlick-contrast
 "colorscheme nord
@@ -127,16 +134,25 @@ let g:material_terminal_italics = 1
 let g:material_theme_style = 'palenight'
 "let g:tokyonight_style = 'storm' " available: night, storm
 "let g:tokyonight_enable_italic = 1
-set termguicolors
+"set t_Co=256
+"set background=light
+"colorscheme PaperColor
+
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 " dark or light for gruvbox
-set background=dark
+set background=light
 colorscheme gruvbox
 "colorscheme tokyonight
+"colorscheme tender
+"let g:airline_theme = 'tender'
 
 " airline
 "let g:airline_theme = 'seoul256'
-let g:airline_theme = 'dracula'
+let g:airline_theme = 'gruvbox'
 "let g:airline_theme = 'material'
 
 let g:airline#extensions#tabline#enabled = 0
@@ -173,9 +189,11 @@ nnoremap <C-m> :ls<CR>
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+"============================================================
 " mapping to move line
-" see:https://vim.fandom.com/wiki/Moving_lines_up_or_down
 " basically: ctrl+j ctrl+k
+" see:https://vim.fandom.com/wiki/Moving_lines_up_or_down
+"============================================================
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 inoremap <C-j> <Esc>:m .+1<CR>==gi
@@ -207,7 +225,9 @@ noremap <C-w>- :resize -10<CR>
 noremap <C-w>< :vertical:resize -10<CR>
 noremap <C-w>> :vertical:resize +10<CR>
 
-"create custom mappings for Go files
+"============================================================
+" Golang configuration
+"============================================================
 autocmd BufEnter *.go nmap <leader>t  <Plug>(go-test)
 autocmd BufEnter *.go nmap <leader>tt <Plug>(go-test-func)
 autocmd BufEnter *.go nmap <leader>c  <Plug>(go-coverage-toggle)
@@ -220,8 +240,9 @@ autocmd BufEnter *.go nmap <leader>cs  <Plug>(go-callstack)
 " map turning off highlighting after search and closing quickfix window
 nnoremap <Esc><Esc> :noh<CR>:ccl<CR>
 
-" fugitive
-" fugitive.vim mappings
+"============================================================
+" fugitive configuration
+"============================================================
 nmap <leader>gb :Gblame<CR>
 nmap <leader>gr :Gread<CR>
 nmap <leader>gw :Gwrite<CR>
@@ -229,6 +250,11 @@ nmap <leader>gd :tabe<CR>:Gdiffsplit<CR>
 nmap <leader>gs :tabe<CR>:Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gl :tabe %<CR>:Glog -- %<CR>
+
+"============================================================
+" YAML configuration
+"============================================================
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 "============================================================
 " Python configuration
