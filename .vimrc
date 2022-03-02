@@ -1,3 +1,6 @@
+set wildmode=longest,list,full
+set wildmenu
+
 set encoding=UTF-8
 
 :let mapleader = " "
@@ -27,11 +30,14 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<tab>"
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"let g:UltiSnipsExpandTrigger="<tab>"
 
 " themes
+Plugin 'ajmwagar/vim-deus'
+Plugin 'tssm/fairyfloss.vim'
+Plugin 'jaredgorski/spacecamp'
 Plugin 'jacoborus/tender.vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'morhetz/gruvbox'
@@ -45,6 +51,8 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'mhartington/oceanic-next'
 Plugin 'embark-theme/vim', { 'name': 'embark' }
 
+Plugin 'rakr/vim-two-firewatch'
+
 Plugin 'sheerun/vim-polyglot'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -54,7 +62,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'alvan/vim-closetag'
 Plugin 'scrooloose/nerdtree'
 " does not work on my laptop, weird characters instead of logos.
-" Plugin 'ryanoasis/vim-devicons'
+ Plugin 'ryanoasis/vim-devicons'
 Plugin 'kien/ctrlp.vim'
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'editorconfig/editorconfig-vim'
@@ -123,13 +131,25 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*.pyc
 " Theming
 "============================================================
 "let g:seoul256_background = 256
-color seoul256-light
+"color seoul256-light
+
+"colorscheme spacecamp
+"colorscheme deus
+colorscheme fairyfloss
+let g:airline_theme='fairyfloss'
+
 "color dracula
 "colorscheme sourlick-contrast
 "colorscheme nord
 "colorscheme OceanicNext
 "colorscheme material
 "colorscheme embark
+"
+"set background=dark
+"colo two-firewatch
+"let g:two_firewatch_italics=1
+"let g:airline_theme='twofirewatch'
+
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'palenight'
 "let g:tokyonight_style = 'storm' " available: night, storm
@@ -144,15 +164,15 @@ if (has("termguicolors"))
 endif
 
 " dark or light for gruvbox
-set background=light
-colorscheme gruvbox
+"set background=light
+"colorscheme gruvbox
 "colorscheme tokyonight
 "colorscheme tender
 "let g:airline_theme = 'tender'
 
 " airline
 "let g:airline_theme = 'seoul256'
-let g:airline_theme = 'gruvbox'
+"let g:airline_theme = 'gruvbox'
 "let g:airline_theme = 'material'
 
 let g:airline#extensions#tabline#enabled = 0
@@ -203,16 +223,57 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Nerd Tree toggling
 map <leader>w :NERDTreeToggle<CR>
-
+let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$']
 
 " map Ctrl+u to redo
 nnoremap <C-u> :redo<CR>
 
-" go to definition to coc
+"============================================================
+" Quickfix list
+"============================================================
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprev<CR>
+
+nnoremap <leader>k :lnext<CR>zz
+nnoremap <leader>j :lprev<CR>zz
+
+nnoremap <C-q> :call ToggleQFList(1)<CR>
+"nnoremap <leader>q :call ToggleQFList(0)<CR>
+
+let g:the_primeagen_qf_l = 0
+let g:the_primeagen_qf_g = 0
+
+fun! ToggleQFList(global)
+    if a:global
+        if g:the_primeagen_qf_g == 1
+            let g:the_primeagen_qf_g = 0
+            cclose
+        else
+            let g:the_primeagen_qf_g = 1
+            copen
+        end
+    else
+        if g:the_primeagen_qf_l == 1
+            let g:the_primeagen_qf_l = 0
+            lclose
+        else
+            let g:the_primeagen_qf_l = 1
+            lopen
+        end
+    endif
+endfun
+
+
+"============================================================
+" Coc configuration
+"============================================================
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$']
+" Use <Tab> and <S-Tab> to navigate the completion list:
+" https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#use-tab-and-s-tab-to-navigate-the-completion-list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "map to split
 " vim default is <C-w> s (horizontal) and <C-w> v (vertical)
@@ -250,6 +311,12 @@ nmap <leader>gd :tabe<CR>:Gdiffsplit<CR>
 nmap <leader>gs :tabe<CR>:Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gl :tabe %<CR>:Glog -- %<CR>
+
+"============================================================
+" Perl configuration
+"============================================================
+" can't make fold works. Let's do it the old way. Not perfect, but it works.
+autocmd FileType perl set foldmarker={,} foldmethod=marker
 
 "============================================================
 " YAML configuration
